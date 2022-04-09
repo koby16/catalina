@@ -1,1 +1,13 @@
-<p>edit-device works!</p>
+<button type="button" (click)="onGoToBackList()">Go To List</button>
+<form (ngSubmit)="onSave()" [formGroup]="deviceForm">
+    <li>
+        <input type="text" placeholder="id" formControlName="id" disabled>
+    </li>
+    <li>
+        <input type="text" placeholder="Marca" formControlName="brand">
+    </li>
+    <li>
+        <input type="text" placeholder="Modelo" formControlName="model">
+    </li>
+    <button type="submit">Click Me!</button>
+</form>

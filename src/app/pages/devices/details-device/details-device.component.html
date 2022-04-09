@@ -1,1 +1,10 @@
-<p>details-device works!</p>
+<button type="button" (click)="onGoToBackList()">Go To List</button>
+<ul>
+    <li>{{ device.id }}</li>
+    <li>{{ device.brand }}</li>
+    <li>{{ device.model }}</li>
+    <li>
+        <button type="button" (click)="onGoToEditDevice()">Edit</button>
+        <button type="button" (click)="onDelete()">Delete</button>
+    </li>
+</ul>
