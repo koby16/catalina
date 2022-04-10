@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { NavigationExtras, Router } from '@angular/router';
 import { DeviceService } from '../device.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-device-list',
@@ -23,7 +25,8 @@ export class DeviceListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private deviceSrv: DeviceService
+    private deviceSrv: DeviceService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -49,12 +52,21 @@ export class DeviceListComponent implements OnInit {
   }
 
   async onGoToDelete(deviceId:string): Promise<void>{
-    try {
-      await this.deviceSrv.onDeleteDevice(deviceId)
-      alert('Deleted')
-    } catch (err){
-      console.log(err)
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: 'Are you sure you want to remove this device?'
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      console.log(res);
+      if ( res ){
+        try {
+          this.deviceSrv.onDeleteDevice(deviceId)
+          alert('Deleted')
+        } catch (err){
+          console.log(err)
+        }
+      }
+    })
   }
 
 }

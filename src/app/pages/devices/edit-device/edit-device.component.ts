@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Device } from '../device.interface';
 import { DeviceService } from '../device.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+
 
 interface Type {
   value: string;
@@ -29,9 +32,11 @@ export class EditDeviceComponent implements OnInit {
   constructor( 
     private router: Router, 
     private fb: FormBuilder,
-    private deviceSrv: DeviceService ) {
+    private deviceSrv: DeviceService,
+    public dialog: MatDialog ) {
     const navigation = this.router.getCurrentNavigation();
     this.device = navigation?.extras?.state?.value
+    console.log(this.device)
    }
 
   ngOnInit(): void {
@@ -49,23 +54,31 @@ export class EditDeviceComponent implements OnInit {
   }
 
   onSave(): void {
-    console.log('Saved', this.deviceForm.value)
-    if (this.deviceForm.valid) {
-      const device = this.deviceForm.value;
-      device.maxTec = this.getMaxTec(device)
-      const deviceId = null
-      this.deviceSrv.onSaveDevice(device, deviceId)
-      alert('Edited')
-      this.onGoToBackList()
-    } else {
-      alert('Not edited')
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: 'Are you sure to edit this device?'
+    });
+    dialogRef.afterClosed().subscribe( res => {
+      //console.log('Saved', this.deviceForm.getRawValue())
+      if ( res ){
+        if (this.deviceForm.valid) {
+          const device = this.deviceForm.getRawValue();
+          device.maxTec = this.getMaxTec(device)
+          const deviceId = this.device.id
+          this.deviceSrv.onSaveDevice(device, deviceId)
+          alert('Edited')
+          this.onGoToBackList()
+        } else {
+          alert('Not edited')
+        }
+      }
+    })
   }
 
   private initForm(): void {
     this.deviceForm = this.fb.group({
-      brand: [{value: null, disabled: true}, [Validators.required]],
-      model: [{value: null, disabled: true}, [Validators.required]],
+      brand: [{value: '', disabled: true}, [Validators.required]],
+      model: [{value: '', disabled: true}, [Validators.required]],
       marketName: ['', [Validators.required]],
       deviceType: ['', [Validators.required]],
       gsm: [false, [Validators.required]],

@@ -18,6 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
+
+
 @NgModule({
   declarations: [ 
     DeviceListComponent, 

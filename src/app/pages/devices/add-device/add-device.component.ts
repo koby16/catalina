@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { stringify } from 'querystring';
 import { Device } from '../device.interface';
 import { DeviceService } from '../device.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+
 
 interface Brand {
   value: string;
@@ -42,24 +44,34 @@ export class AddDeviceComponent implements OnInit {
   constructor( 
     private router: Router, 
     private fb: FormBuilder,
-    private deviceSrv: DeviceService ) { }
+    private deviceSrv: DeviceService,
+    public dialog: MatDialog ) { }
 
   ngOnInit(): void {
     this.initForm()
   }
 
   onSave(): void {
-    console.log('Saved', this.deviceForm.value)
-    if (this.deviceForm.valid) {
-      const device = this.deviceForm.value;
-      device.maxTec = this.getMaxTec(device)
-      const deviceId = null
-      this.deviceSrv.onSaveDevice(device, deviceId)
-      alert('Added')
-      this.onGoToBackList()
-    } else {
-      alert('Not added')
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: 'Are you sure to add this device?'
+    });
+    dialogRef.afterClosed().subscribe( res => {
+      if ( res ){
+        console.log('Saved', this.deviceForm.value)
+        if (this.deviceForm.valid) {
+          const device = this.deviceForm.value;
+          device.maxTec = this.getMaxTec(device)
+          const deviceId = null
+          this.deviceSrv.onSaveDevice(device, deviceId)
+          alert('Added')
+          this.onGoToBackList()
+        } else {
+          alert('Not added')
+        }
+      }
+    })       
+    
   }
 
   onGoToBackList(): void{

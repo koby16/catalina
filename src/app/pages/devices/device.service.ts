@@ -32,6 +32,7 @@ export class DeviceService {
     return new Promise( async (resolve, reject) => {
       try {
         const id = devId || this.afs.createId();
+        //console.log(id)
         const data = { id, ...device };
         const result = this.devicesCollection.doc(id).set(data)
         resolve(result)
