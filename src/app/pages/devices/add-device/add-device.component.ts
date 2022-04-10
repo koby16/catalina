@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { stringify } from 'querystring';
+import { Device } from '../device.interface';
 import { DeviceService } from '../device.service';
 
 interface Brand {
@@ -23,11 +25,11 @@ export class AddDeviceComponent implements OnInit {
   deviceForm: FormGroup;
 
   brands: Brand[] = [
-    {value: 'xiaomi', viewValue: 'Xiaomi'},
-    {value: 'samsung', viewValue: 'Samsung'},
-    {value: 'apple', viewValue: 'Apple'},
-    {value: 'motorola', viewValue: 'Motorola'},
-    {value: 'honor', viewValue: 'Honor'},
+    {value: 'Xiaomi', viewValue: 'Xiaomi'},
+    {value: 'Samsung', viewValue: 'Samsung'},
+    {value: 'Apple', viewValue: 'Apple'},
+    {value: 'Motorola', viewValue: 'Motorola'},
+    {value: 'Honor', viewValue: 'Honor'},
   ];
 
   types: Type[] = [
@@ -50,6 +52,7 @@ export class AddDeviceComponent implements OnInit {
     console.log('Saved', this.deviceForm.value)
     if (this.deviceForm.valid) {
       const device = this.deviceForm.value;
+      device.maxTec = this.getMaxTec(device)
       const deviceId = null
       this.deviceSrv.onSaveDevice(device, deviceId)
       alert('Added')
@@ -73,7 +76,28 @@ export class AddDeviceComponent implements OnInit {
       umts: [false, [Validators.required]],
       lte: [false, [Validators.required]],
       nr: [false, [Validators.required]],
+      maxTec: ''
     })
+    
   }
 
+  getMaxTec(device: Device): string {
+
+    if ( device.nr == true) {
+      return "5G"
+    } else if ( device.lte == true && device.nr == false){
+      return "4G"
+    } else if ( device.umts == true && device.lte == false  && device.nr == false) {
+      return "3G"
+    } else if ( device.gsm == true && device.umts == false && device.lte == false  && device.nr == false) {
+      return "2G"
+    } else {
+      return "undefined"
+    }
+  }
+
+  
+
 }
+
+

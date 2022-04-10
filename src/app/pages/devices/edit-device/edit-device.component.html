@@ -1,13 +1,32 @@
-<button type="button" (click)="onGoToBackList()">Go To List</button>
-<form (ngSubmit)="onSave()" [formGroup]="deviceForm">
-    <li>
-        <input type="text" placeholder="id" formControlName="id" disabled>
-    </li>
-    <li>
-        <input type="text" placeholder="Marca" formControlName="brand">
-    </li>
-    <li>
-        <input type="text" placeholder="Modelo" formControlName="model">
-    </li>
-    <button type="submit">Click Me!</button>
+<form class="example-form" (ngSubmit)="onSave()" [formGroup]="deviceForm">  
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Brand (Disabled)</mat-label>
+        <input matInput placeholder="Write model" formControlName="brand">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Model (Disabled)</mat-label>
+        <input matInput placeholder="Write model" formControlName="model">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Market Name</mat-label>
+        <input matInput placeholder="Write market name" formControlName="marketName">
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Device type</mat-label>
+        <mat-select formControlName="deviceType">
+            <mat-option *ngFor="let type of types" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <section class="example-full-width">
+        <h4>Select support technologies:</h4>
+        <div class="example-section">
+            <mat-checkbox class="example-margin" formControlName="gsm">2G</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="umts">3G</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="lte">4G</mat-checkbox>
+            <mat-checkbox class="example-margin" formControlName="nr">5G</mat-checkbox>
+        </div>
+    </section>
+    <button mat-raised-button color="primary" class="example-full-width">Edit</button>
 </form>

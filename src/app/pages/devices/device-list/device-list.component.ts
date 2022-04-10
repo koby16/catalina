@@ -12,7 +12,7 @@ export class DeviceListComponent implements OnInit {
 
   devices$ = this.deviceSrv.devices
 
-  displayedColumns: string[] = ['brand', 'model', 'marketName', 'star']
+  displayedColumns: string[] = ['brand', 'model', 'marketName', 'maxTec', 'star']
   dataSource = new MatTableDataSource();
 
   navigationExtras: NavigationExtras = {

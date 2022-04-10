@@ -8,5 +8,5 @@ export interface Device {
     umts: boolean,
     lte: boolean,
     nr: boolean,
-    maxTec?:string
+    maxTec: string
 }

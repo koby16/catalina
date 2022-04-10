@@ -25,6 +25,11 @@
     <td mat-cell *matCellDef="let element"> {{element.marketName}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="maxTec">
+    <th mat-header-cell *matHeaderCellDef> Tecnology </th>
+    <td mat-cell *matCellDef="let element"> {{element.maxTec}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="star" stickyEnd>
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">

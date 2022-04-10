@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Device } from '../device.interface';
 import { DeviceService } from '../device.service';
+
+interface Type {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-edit-device',
@@ -12,6 +18,13 @@ export class EditDeviceComponent implements OnInit {
 
   deviceForm: FormGroup;
   device = null;
+
+  types: Type[] = [
+    {value: 'cpe', viewValue: 'CPE'},
+    {value: 'smartphone', viewValue: 'Smartphone'},
+    {value: 'tracker', viewValue: 'Tracker'},
+    {value: 'iot', viewValue: 'IoT'}
+  ];
 
   constructor( 
     private router: Router, 
@@ -39,9 +52,11 @@ export class EditDeviceComponent implements OnInit {
     console.log('Saved', this.deviceForm.value)
     if (this.deviceForm.valid) {
       const device = this.deviceForm.value;
-      const deviceId = this.device?.id;
+      device.maxTec = this.getMaxTec(device)
+      const deviceId = null
       this.deviceSrv.onSaveDevice(device, deviceId)
       alert('Edited')
+      this.onGoToBackList()
     } else {
       alert('Not edited')
     }
@@ -49,10 +64,32 @@ export class EditDeviceComponent implements OnInit {
 
   private initForm(): void {
     this.deviceForm = this.fb.group({
-      id: ['', [Validators.required]],
-      brand: ['', [Validators.required]],
-      model: ['', [Validators.required]]
+      brand: [{value: null, disabled: true}, [Validators.required]],
+      model: [{value: null, disabled: true}, [Validators.required]],
+      marketName: ['', [Validators.required]],
+      deviceType: ['', [Validators.required]],
+      gsm: [false, [Validators.required]],
+      umts: [false, [Validators.required]],
+      lte: [false, [Validators.required]],
+      nr: [false, [Validators.required]],
+      maxTec: ''
     })
+    
+  }
+
+  getMaxTec(device: Device): string {
+
+    if ( device.nr == true) {
+      return "5G"
+    } else if ( device.lte == true && device.nr == false){
+      return "4G"
+    } else if ( device.umts == true && device.lte == false  && device.nr == false) {
+      return "3G"
+    } else if ( device.gsm == true && device.umts == false && device.lte == false  && device.nr == false) {
+      return "2G"
+    } else {
+      return "undefined"
+    }
   }
 
 }
