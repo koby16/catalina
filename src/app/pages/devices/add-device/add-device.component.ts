@@ -65,7 +65,6 @@ export class AddDeviceComponent implements OnInit {
           const deviceId = null
           this.deviceSrv.onSaveDevice(device, deviceId)
           alert('Added')
-          this.onGoToBackList()
         } else {
           alert('Not added')
         }

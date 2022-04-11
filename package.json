@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
@@ -25,6 +26,7 @@
     "@ngx-formly/bootstrap": "^5.0.0",
     "@ngx-formly/core": "^5.0.0",
     "@popperjs/core": "^2.11.2",
+    "bootstrap": "^5.1.3",
     "firebase": "^8.6.8",
     "jquery": "^3.6.0",
     "rxjs": "~6.6.0",

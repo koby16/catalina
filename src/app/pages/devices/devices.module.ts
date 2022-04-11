@@ -17,6 +17,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { DashboardDeviceComponent } from './dashboard-device/dashboard-device.component';
+import { MatCardModule } from '@angular/material/card';
 
 
 
@@ -25,7 +28,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DeviceListComponent, 
     AddDeviceComponent, 
     EditDeviceComponent, 
-    DetailsDeviceComponent],
+    DetailsDeviceComponent, 
+    DashboardDeviceComponent],
   imports: [
     CommonModule,
     DevicesRoutingModule,
@@ -38,7 +42,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatMenuModule,
     MatButtonModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatGridListModule,
+    MatCardModule
   ]
 })
 export class DevicesModule { }
