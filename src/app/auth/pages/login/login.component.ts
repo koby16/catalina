@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +8,29 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
 
-  constructor() { }
+  loginForm = new FormGroup({
+    email: new FormControl(''),
+    password: new FormControl('')
+  })
+  
+  constructor(
+    private afServ: AuthService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onLogin(){
+    console.log('Form --> ', this.loginForm.value)
+    const { email, password } = this.loginForm.value
+    this.afServ.SignIn( email, password )
+  }
+
+  authState(){
+    this.afServ.userData.subscribe(res => {
+      console.log(res?.uid)
+    })
   }
 
 }
