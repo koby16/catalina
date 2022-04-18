@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth.service';
 
@@ -10,17 +10,16 @@ import { AuthService } from '../../auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  loginForm = new FormGroup({
-    email: new FormControl(''),
-    password: new FormControl('')
-  })
+  loginForm: FormGroup;
   
   constructor(
     private afServ: AuthService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder,
   ) { }
 
   ngOnInit(): void {
+    this.initForm()
   }
 
   onLogin(){
@@ -33,6 +32,20 @@ export class LoginComponent implements OnInit {
     this.afServ.userData.subscribe(res => {
       console.log(res?.uid)
     })
+  }
+
+  private initForm(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    })
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+  get password() {
+    return this.loginForm.get('password');
   }
 
 }

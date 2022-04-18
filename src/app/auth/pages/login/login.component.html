@@ -1,7 +1,28 @@
-<form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-  <input type="text" placeholder="email" formControlName="email">
-  <input type="password" placeholder="password" formControlName="password">
-  <button type="submit">Login</button>
-</form>
-
-<button (click)="authState()">State</button>
+<div class="container mt-3">
+  <div class="row justify-content-center">
+    <div class="col-lg-6">
+      <mat-card>
+        <form class="row g-3" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+          <mat-form-field class="col-12" appearance="fill">
+            <mat-label>e-mail</mat-label>
+            <input matInput type="email" placeholder="Write email" formControlName="email">
+            <mat-error *ngIf="email.hasError('email') && !email.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="email.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="col-12" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="Write password" formControlName="password">
+            <mat-error *ngIf="password.hasError('required')">
+              Password is <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button class="mt-2" color="primary" type="submit">Login</button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>

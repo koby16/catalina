@@ -10,7 +10,7 @@ import { DetailsDeviceComponent } from './details-device/details-device.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
