@@ -9,10 +9,15 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
+  public isLogged = false;
+  public user: any;
+
   constructor(
     private router: Router,
-    private afServ: AuthService
-  ) { }
+    public afServ: AuthService
+  ) {
+  }
+
 
   ngOnInit(): void {
   }
@@ -20,9 +25,12 @@ export class NavbarComponent implements OnInit {
   onGoToLogin(): void{
     this.router.navigate(['auth/login'])
   }
+
   onGoToLogout(): void{
     this.afServ.SignOut();
+    this.router.navigate(['auth/login'])
   }
+  
   onGoToRegister(): void{
     this.router.navigate(['auth/register'])
   }

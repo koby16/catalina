@@ -4,13 +4,16 @@
     </button>
     <span>Catalina</span>
     <span class="example-spacer"></span>
-    <button mat-icon-button (click)="onGoToLogin()">
+    <button *ngIf="(afServ.userData | async) === null" mat-button (click)="onGoToLogin()">
       <mat-icon>login</mat-icon>
+      Login
     </button>
-    <button mat-icon-button (click)="onGoToLogout()">
+    <button *ngIf="!((afServ.userData | async) === null)" mat-button (click)="onGoToLogout()">
       <mat-icon>logout</mat-icon>
+      Logout
     </button>
-    <button mat-icon-button (click)="onGoToRegister()">
+    <button *ngIf="(afServ.userData | async) === null" mat-button (click)="onGoToRegister()">
       <mat-icon>app_registration</mat-icon>
+      Register
     </button>
 </mat-toolbar>
