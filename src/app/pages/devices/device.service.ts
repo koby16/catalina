@@ -38,7 +38,6 @@ export class DeviceService {
         resolve(result)
       } catch (err) {
         reject(err.message)
-
       }
     })
   }

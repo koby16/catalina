@@ -52,10 +52,12 @@ export class AddDeviceComponent implements OnInit {
   }
 
   onSave(): void {
+
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
       data: 'Are you sure to add this device?'
     });
+    
     dialogRef.afterClosed().subscribe( res => {
       if ( res ){
         console.log('Saved', this.deviceForm.value)
