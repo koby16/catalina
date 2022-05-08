@@ -1,4 +1,39 @@
-<input type="file"
+<div class="container">
+  <input type="file"
        id="datajson"
        accept="json"
        (change)="onFileChange($event)">
+
+<button (click)="getSummary()">GET</button>
+
+<mat-accordion>  
+  <mat-expansion-panel (opened)="panelOpenState1 = true"
+                      (closed)="panelOpenState1 = false"
+                      expanded="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ this.ueSummary.NR['RAT Name']}}
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState1 ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel (opened)="panelOpenState2 = true"
+                      (closed)="panelOpenState2 = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Self aware panel
+      </mat-panel-title>
+      <mat-panel-description>
+        Currently I am {{panelOpenState2 ? 'open' : 'closed'}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <p>I'm visible because I am open</p>
+  </mat-expansion-panel>
+</mat-accordion>
+     
+
+</div>

@@ -11,6 +11,9 @@ export class AddJsonComponent implements OnInit {
   ueCapabilities:any = {};
   summaryPhone: any = {};
   ueSummary: any = {};
+
+  panelOpenState1 = true;
+  panelOpenState2 = false;
   
   constructor( private route: ActivatedRoute) {
     this.id = this.route.snapshot.paramMap.get('id')
@@ -43,14 +46,13 @@ export class AddJsonComponent implements OnInit {
   getSummary():void{
     this.summaryPhone = this.ueCapabilities["Summary"]
     this.ueSummary = {}
-    this.summaryPhone.forEach(item => {
-      if (item["RAT_Name"] == "5G NR") {
-        this.ueSummary["NR"] = item
+    this.summaryPhone.forEach( item => {
+      if (item['RAT Name'] === '5G NR') {
+        this.ueSummary['NR'] = item
       } else {
-        this.ueSummary[item["RAT_Name"]] = item
+        this.ueSummary[item["RAT Name"]] = item
       }
     });
-    console.log(this.summaryPhone);
     console.log(this.ueSummary);
   }
   typeOf(value) {
