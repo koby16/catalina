@@ -15,6 +15,8 @@ const routes: Routes = [
     path: 'devices',
     loadChildren: () => import('./pages/devices/devices.module').then( m => m.DevicesModule )
   },
+
+  { path: 'inventory', loadChildren: () => import('./pages/inventory/inventory.module').then(m => m.InventoryModule) },
   {
     path: '**',
     redirectTo: 'auth/login'

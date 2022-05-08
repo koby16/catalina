@@ -7,6 +7,7 @@ const routes: Routes = [
     canActivate: [],
     children: [
       { path: 'add', loadChildren: () => import('./add-datasheet/add-datasheet.module').then(m => m.AddDatasheetModule) },
+      { path: 'add-json', loadChildren: () => import('./add-json/add-json.module').then(m => m.AddJsonModule)}
     ]
   }
 ]
