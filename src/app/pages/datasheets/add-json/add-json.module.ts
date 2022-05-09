@@ -19,7 +19,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatExpansionModule,
     MatListModule,
     MatButtonModule
-  ]
+  ],
+  exports:[ AddJsonComponent ]
 })
 export class AddJsonModule {
 

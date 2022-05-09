@@ -20,8 +20,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { DashboardDeviceComponent } from './dashboard-device/dashboard-device.component';
 import { MatCardModule } from '@angular/material/card';
-
-
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
+import { DetailsJsonModule } from '../datasheets/details-json/details-json.module';
 
 @NgModule({
   declarations: [ 
@@ -29,7 +31,8 @@ import { MatCardModule } from '@angular/material/card';
     AddDeviceComponent, 
     EditDeviceComponent, 
     DetailsDeviceComponent, 
-    DashboardDeviceComponent],
+    DashboardDeviceComponent
+  ],
   imports: [
     CommonModule,
     DevicesRoutingModule,
@@ -44,7 +47,11 @@ import { MatCardModule } from '@angular/material/card';
     MatSelectModule,
     MatCheckboxModule,
     MatGridListModule,
-    MatCardModule
+    MatCardModule,
+    MatChipsModule,
+    MatDividerModule,
+    MatListModule,
+    DetailsJsonModule
   ]
 })
 export class DevicesModule { }

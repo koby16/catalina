@@ -23,11 +23,12 @@ export class DetailsDeviceComponent implements OnInit {
     private deviceSrv: DeviceService ) {
     const navigation = this.router.getCurrentNavigation();
     this.device = navigation?.extras?.state?.value
+    console.log(this.device)
   }
 
   ngOnInit(): void {
     if (typeof this.device === 'undefined') {
-      this.router.navigate(['devices/device-list']);
+      this.router.navigate(['devices/dashboard-devices']);
     }
   }
 
@@ -37,7 +38,7 @@ export class DetailsDeviceComponent implements OnInit {
   }
 
   onGoToBackList(): void{
-    this.router.navigate(['devices/device-list'])
+    this.router.navigate(['devices/dashboard-devices'])
   }
 
   async onDelete(): Promise<void>{

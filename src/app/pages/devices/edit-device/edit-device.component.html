@@ -1,5 +1,4 @@
-<div class="container">
-    
+<div class="container mt-3">
     <form class="example-form" (ngSubmit)="onSave()" [formGroup]="deviceForm">
         <mat-card>
             <mat-card-title>Edit device data</mat-card-title>
@@ -37,7 +36,7 @@
             </mat-card-content>
             <mat-card-actions>
               <button type="submit" mat-button>SAVE</button>
-              <button mat-button>DELETE</button>
+              <button mat-button (click)="onDelete()">DELETE</button>
             </mat-card-actions>
         </mat-card>
     </form>

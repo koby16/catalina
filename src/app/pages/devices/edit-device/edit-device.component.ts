@@ -53,6 +53,16 @@ export class EditDeviceComponent implements OnInit {
     this.router.navigate(['devices/dashboard-devices'])
   }
 
+  async onDelete(): Promise<void>{
+    try {
+      await this.deviceSrv.onDeleteDevice(this.device.id)
+      alert('Deleted')
+      this.onGoToBackList()
+    } catch (err){
+      console.log(err)
+    }
+  }
+
   onSave(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',

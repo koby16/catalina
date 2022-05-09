@@ -29,4 +29,10 @@ export class DatasheetService {
       }
     })
   }
+  async getJsonData(docId:string){
+    
+    let document = await this.afs.collection<any>('datasheets').doc(docId).get().toPromise();
+    console.log(document.data())
+    return document.data();
+  }
 }

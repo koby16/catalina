@@ -37,9 +37,9 @@ export class DeviceListComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  onGoToDetailDevice(item: any): void{
+  onGoToDetailDevice(item: any, deviceId: string): void{
     this.navigationExtras.state.value = item
-    this.router.navigate(['devices/details-device'], this.navigationExtras)
+    this.router.navigate(['devices/details-device', deviceId], this.navigationExtras)
   }
 
   onGoToAddJson(deviceId:string): void{

@@ -7,9 +7,11 @@ const routes: Routes = [
     canActivate: [],
     children: [
       { path: 'add', loadChildren: () => import('./add-datasheet/add-datasheet.module').then(m => m.AddDatasheetModule) },
-      { path: 'add-json/:id', loadChildren: () => import('./add-json/add-json.module').then(m => m.AddJsonModule)}
+      { path: 'add-json/:id', loadChildren: () => import('./add-json/add-json.module').then(m => m.AddJsonModule)},
+      { path: 'details', loadChildren: () => import('./details-json/details-json.module').then(m => m.DetailsJsonModule) }
     ]
-  }
+  },
+  
 ]
   
 

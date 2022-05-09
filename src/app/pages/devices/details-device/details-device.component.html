@@ -1,10 +1,38 @@
-<button type="button" (click)="onGoToBackList()">Go To List</button>
-<ul>
-    <li>{{ device.id }}</li>
-    <li>{{ device.brand }}</li>
-    <li>{{ device.model }}</li>
-    <li>
-        <button type="button" (click)="onGoToEditDevice()">Edit</button>
-        <button type="button" (click)="onDelete()">Delete</button>
-    </li>
-</ul>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-lg-4">
+            <mat-card>
+                <mat-form-field class="d-block" appearance="fill">
+                    <mat-label>Brand</mat-label>
+                    <input matInput disabled value="{{ device.brand }}">
+                </mat-form-field>
+                <mat-form-field class="d-block" appearance="fill">
+                    <mat-label>Model</mat-label>
+                    <input matInput disabled value="{{ device.model }}">
+                </mat-form-field>
+                <mat-form-field class="d-block" appearance="fill">
+                    <mat-label>Market Name</mat-label>
+                    <input matInput disabled value="{{ device.marketName }}">
+                </mat-form-field>
+                <mat-form-field class="d-block" appearance="fill">
+                    <mat-label>Device Type</mat-label>
+                    <input matInput disabled value="{{ device.deviceType }}">
+                </mat-form-field>
+            
+                <mat-chip-list>
+                    <mat-chip color="primary" selected="{{ device.gsm }}">2G</mat-chip>
+                    <mat-chip color="primary" selected="{{ device.umts }}">3G</mat-chip>
+                    <mat-chip color="primary" selected="{{ device.lte }}">4G</mat-chip>
+                    <mat-chip color="primary" selected="{{ device.nr }}">5G</mat-chip>
+                </mat-chip-list>
+            </mat-card>
+        </div>
+        <div class="col-lg-8">
+            <app-details-json></app-details-json>
+        </div>
+    </div>
+    
+</div>
+
+
+  

@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: 'device-list', component: DeviceListComponent },
       { path: 'add-device', component: AddDeviceComponent },
       { path: 'edit-device', component: EditDeviceComponent },
-      { path: 'details-device', component: DetailsDeviceComponent },
+      { path: 'details-device/:id', component: DetailsDeviceComponent },
       { path: 'dashboard-devices', component: DashboardDeviceComponent },
       { path: '**', redirectTo: 'device-list' }
     ]
