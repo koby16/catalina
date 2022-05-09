@@ -43,14 +43,14 @@ export class EditDeviceComponent implements OnInit {
     this.initForm();
 
     if ( typeof this.device === 'undefined' ){
-      this.router.navigate(['devices/device-list'])
+      this.router.navigate(['devices/dashboard-devices'])
     } else {
       this.deviceForm.patchValue(this.device)
     }
   }
 
   onGoToBackList(): void{
-    this.router.navigate(['devices/device-list'])
+    this.router.navigate(['devices/dashboard-devices'])
   }
 
   onSave(): void {

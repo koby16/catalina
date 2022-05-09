@@ -42,6 +42,10 @@ export class DeviceListComponent implements OnInit {
     this.router.navigate(['devices/details-device'], this.navigationExtras)
   }
 
+  onGoToAddJson(deviceId:string): void{
+    this.router.navigate(['datasheets/add-json', deviceId])
+  }
+
   onGoToEditDevice(item: any): void{
     this.navigationExtras.state.value = item
     this.router.navigate(['devices/edit-device'], this.navigationExtras)    

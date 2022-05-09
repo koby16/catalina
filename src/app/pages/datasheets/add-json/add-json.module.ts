@@ -5,6 +5,10 @@ import { AddJsonRoutingModule } from './add-json-routing.module';
 import { AddJsonComponent } from './add-json.component';
 
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button';
+
+
 
 
 @NgModule({
@@ -12,7 +16,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
   imports: [
     CommonModule,
     AddJsonRoutingModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatListModule,
+    MatButtonModule
   ]
 })
 export class AddJsonModule {

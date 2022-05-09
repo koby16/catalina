@@ -16,7 +16,17 @@ export class DatasheetService {
     this.datasheetCollection = afs.collection<any>('datasheets')
   }
 
-  onSaveDatasheet(){
-    
+  onSaveJsonSummary( datasheet: any, devId: string ): Promise<void> {
+    return new Promise( async (resolve, reject) => {
+      try {
+        const id = devId;
+        //console.log(id)
+        const data = datasheet;
+        const result = this.datasheetCollection.doc(id).set(data)
+        resolve(result)
+      } catch (err) {
+        reject(err.message)
+      }
+    })
   }
 }

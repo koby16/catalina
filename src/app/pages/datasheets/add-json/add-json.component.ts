@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DatasheetService } from '../datasheet.service';
 
 @Component({
   selector: 'app-add-json',
@@ -15,7 +16,10 @@ export class AddJsonComponent implements OnInit {
   panelOpenState1 = true;
   panelOpenState2 = false;
   
-  constructor( private route: ActivatedRoute) {
+  constructor( 
+    private route: ActivatedRoute, 
+    private dSrv: DatasheetService,
+    private router: Router,) {
     this.id = this.route.snapshot.paramMap.get('id')
   }
 
@@ -35,12 +39,12 @@ export class AddJsonComponent implements OnInit {
     fileReader.readAsText(fileToLoad, "UTF-8");
   }
 
-  onSave(): void {
-    console.log('Saved', this.ueCapabilities);
-    this.getSummary()
-    const capabilities = this.ueSummary;
-    const terminalId = this.id || null;
-    
+  onSaveDatasheet(): void {
+    const outCapabilities = this.ueSummary;
+    const dsId = this.id;
+    this.dSrv.onSaveJsonSummary( outCapabilities, dsId)
+    alert('OK guardado')
+    this.router.navigate(['devices/dashboard-devices'])
   }
 
   getSummary():void{
@@ -48,13 +52,16 @@ export class AddJsonComponent implements OnInit {
     this.ueSummary = {}
     this.summaryPhone.forEach( item => {
       if (item['RAT Name'] === '5G NR') {
+        delete item["RAT Name"]
         this.ueSummary['NR'] = item
       } else {
         this.ueSummary[item["RAT Name"]] = item
+        delete item["RAT Name"]
       }
     });
     console.log(this.ueSummary);
   }
+  
   typeOf(value) {
     return typeof value;
   }
