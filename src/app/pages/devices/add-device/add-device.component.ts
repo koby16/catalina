@@ -32,6 +32,11 @@ export class AddDeviceComponent implements OnInit {
     {value: 'Apple', viewValue: 'Apple'},
     {value: 'Motorola', viewValue: 'Motorola'},
     {value: 'Honor', viewValue: 'Honor'},
+    {value: 'Huawei', viewValue: 'Huawei'},
+    {value: 'Oppo', viewValue: 'Oppo'},
+    {value: 'ZTE', viewValue: 'ZTE'},
+    {value: 'Realme', viewValue: 'Realme'},
+    {value: 'VIVO', viewValue: 'VIVO'},
   ];
 
   types: Type[] = [

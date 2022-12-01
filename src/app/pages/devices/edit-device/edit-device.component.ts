@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Device } from '../device.interface';
+import { Device, FileUpload } from '../device.interface';
 import { DeviceService } from '../device.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
@@ -19,6 +19,11 @@ interface Type {
 })
 export class EditDeviceComponent implements OnInit {
 
+  selectedFiles?: FileList;
+  currentFileUpload?: FileUpload;
+  percentage = 0;
+  defaultImage = "https://play-lh.googleusercontent.com/jMYUEwByxu5_G-VRYLpY-wWoSX9L-H62mjn8puy8MJuYTwSoUiUACPo4uTSmK2uKrIo"
+
   deviceForm: FormGroup;
   device = null;
 
@@ -27,6 +32,12 @@ export class EditDeviceComponent implements OnInit {
     {value: 'smartphone', viewValue: 'Smartphone'},
     {value: 'tracker', viewValue: 'Tracker'},
     {value: 'iot', viewValue: 'IoT'}
+  ];
+  
+  stockTypes: Type[] = [
+    {value: 'Precio Especial', viewValue: 'Precio Especial'},
+    {value: 'Liquidacion', viewValue: 'Liquidacion'},
+    {value: 'General', viewValue: 'General'},
   ];
 
   constructor( 
@@ -43,24 +54,14 @@ export class EditDeviceComponent implements OnInit {
     this.initForm();
 
     if ( typeof this.device === 'undefined' ){
-      this.router.navigate(['devices/dashboard-devices'])
+      this.router.navigate(['devices/dashboard'])
     } else {
       this.deviceForm.patchValue(this.device)
     }
   }
 
   onGoToBackList(): void{
-    this.router.navigate(['devices/dashboard-devices'])
-  }
-
-  async onDelete(): Promise<void>{
-    try {
-      await this.deviceSrv.onDeleteDevice(this.device.id)
-      alert('Deleted')
-      this.onGoToBackList()
-    } catch (err){
-      console.log(err)
-    }
+    this.router.navigate(['devices/dashboard'])
   }
 
   onSave(): void {
@@ -91,11 +92,25 @@ export class EditDeviceComponent implements OnInit {
       model: [{value: '', disabled: true}, [Validators.required]],
       marketName: ['', [Validators.required]],
       deviceType: ['', [Validators.required]],
+      stockType: ['', [Validators.required]],
       gsm: [false, [Validators.required]],
       umts: [false, [Validators.required]],
       lte: [false, [Validators.required]],
       nr: [false, [Validators.required]],
-      maxTec: ''
+      maxTec: '',
+      cfPerformance: [0, [Validators.required, Validators.min(0)]],
+      cfCamera: [0, [Validators.required]],
+      cfBattery: [0, [Validators.required]],
+      cfDesign: [0, [Validators.required]],
+      cfScreen: [0, [Validators.required]],
+      cfAudio: [0, [Validators.required]],
+      cfConnectivity: [0, [Validators.required]],
+      cfOs: [0, [Validators.required]],
+      price74: [0, [Validators.required]],
+      storePR: [false, [Validators.required]],
+      storeSM: [false, [Validators.required]],
+      storeCL: [false, [Validators.required]],
+      urlPicture: ''
     })
     
   }
@@ -114,5 +129,31 @@ export class EditDeviceComponent implements OnInit {
       return "undefined"
     }
   }
+
+  selectFile(event: any): void {
+    this.selectedFiles = event.target.files;
+  }
+
+  upload(): void {
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+      this.selectedFiles = undefined;
+
+      if (file) {
+        this.currentFileUpload = new FileUpload(file);
+        this.deviceSrv.pushFileToStorage(this.currentFileUpload, this.device, this.device.id).subscribe(
+          percentage => {
+            this.percentage = Math.round(percentage ? percentage : 0);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    }
+
+  }
+
+  
 
 }

@@ -36,7 +36,7 @@ export class AuthService {
     .then(res => {
       console.log("You are in");
       firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      this.router.navigate(['devices/dashboard-devices'])
+      this.router.navigate(['celufinder/piloto/plaza-republica'])
     })
     .catch(err => {
       console.log('Something went wrong:',err.message);

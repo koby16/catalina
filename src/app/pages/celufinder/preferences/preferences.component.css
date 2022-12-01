@@ -1,0 +1,10 @@
+.example-margin {
+    margin: 8px;
+  }
+.example-width {
+  max-width: 180px;
+  width: 100%;
+}
+.example-store{
+  width: 100%;
+}

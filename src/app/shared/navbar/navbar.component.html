@@ -2,7 +2,11 @@
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>Catalina</span>
+    <span>CeluFinder</span>
+    <span class="example-spacer"></span>
+    <button mat-button (click)="onGoToPR()">Plaza Republica</button>
+    <button mat-button (click)="onGoToCL()">Centro de Lima</button>
+    <button mat-button (click)="onGoToSM()">Plaza San Miguel</button>
     <span class="example-spacer"></span>
     <button *ngIf="(afServ.userData | async) === null" mat-button (click)="onGoToLogin()">
       <mat-icon>login</mat-icon>
@@ -11,9 +15,5 @@
     <button *ngIf="!((afServ.userData | async) === null)" mat-button (click)="onGoToLogout()">
       <mat-icon>logout</mat-icon>
       Logout
-    </button>
-    <button *ngIf="(afServ.userData | async) === null" mat-button (click)="onGoToRegister()">
-      <mat-icon>app_registration</mat-icon>
-      Register
     </button>
 </mat-toolbar>

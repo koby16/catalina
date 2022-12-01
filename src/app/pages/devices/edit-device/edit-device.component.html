@@ -1,4 +1,4 @@
-<div class="container mt-3">
+<div class="container mt-3 mb-3">
     <form class="example-form" (ngSubmit)="onSave()" [formGroup]="deviceForm">
         <mat-card>
             <mat-card-title>Edit device data</mat-card-title>
@@ -24,6 +24,18 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Price 74.9</mat-label>
+                    <input matInput type="number" placeholder="Precio plan 74.9" formControlName="price74" min="0" max="100">
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Stock type</mat-label>
+                    <mat-select formControlName="stockType">
+                        <mat-option *ngFor="let type of stockTypes" [value]="type.value">
+                          {{type.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
                 <section class="example-full-width">
                     <h4>Select support technologies:</h4>
                     <div class="example-section">
@@ -33,11 +45,106 @@
                         <mat-checkbox class="example-margin" formControlName="nr">5G</mat-checkbox>
                     </div>
                 </section>
+                <div class="row">
+                    <h4>Enter score:</h4>
+                    <div class="col-3">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Perfomance</mat-label>
+                            <input matInput type="number" placeholder="Write performance" formControlName="cfPerformance" min="0" max="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Camera</mat-label>
+                            <input matInput type="number" placeholder="Write camera" formControlName="cfCamera" min="0" max="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Battery</mat-label>
+                            <input matInput type="number" placeholder="Write Battery" formControlName="cfBattery" min="0" max="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Design</mat-label>
+                            <input matInput type="number" placeholder="Write Design" formControlName="cfDesign" min="0" max="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Screen</mat-label>
+                            <input matInput type="number" placeholder="Write Screen" formControlName="cfScreen" min="0" max="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Audio</mat-label>
+                            <input matInput type="number" placeholder="Write Audio" formControlName="cfAudio" min="0" max="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Connectivity</mat-label>
+                            <input matInput type="number" placeholder="Write Connectivity" formControlName="cfConnectivity" min="0" max="100">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-3">
+                        <mat-form-field class="example-full-width" appearance="fill">
+                            <mat-label>Operating System</mat-label>
+                            <input matInput type="number" placeholder="Write Operating System" formControlName="cfOs" min="0" max="100">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <section class="example-full-width">
+                    <h4>Select stores:</h4>
+                    <div class="example-section">
+                        <mat-checkbox class="example-margin" formControlName="storePR">Plaza Republica</mat-checkbox>
+                        <mat-checkbox class="example-margin" formControlName="storeSM">San Miguel</mat-checkbox>
+                        <mat-checkbox class="example-margin" formControlName="storeCL">Cercado Lima</mat-checkbox>
+                    </div>
+                </section>
             </mat-card-content>
             <mat-card-actions>
               <button type="submit" mat-button>SAVE</button>
-              <button mat-button (click)="onDelete()">DELETE</button>
             </mat-card-actions>
         </mat-card>
     </form>
+
+    <mat-card class="my-3">
+        <mat-card-title>Agregar Imagen (Formulario separado)</mat-card-title>
+        <img mat-card-xl-image [src]="this.device.urlPicture || defaultImage" class="mt-2" alt="Photo of a Shiba Inu">
+        <mat-card-content>
+            <label>
+                <input
+                  type="file"
+                  class="text-nowrap text-truncate"
+                  (change)="selectFile($event)"
+                />
+            </label>
+              
+            <button
+                class="btn btn-success btn-sm"
+                [disabled]="!selectedFiles"
+                (click)="upload()"
+            >
+                Upload
+            </button>
+              
+            <div *ngIf="currentFileUpload" class="progress mt-2">
+                <div
+                  class="progress-bar progress-bar-info"
+                  role="progressbar"
+                  attr.aria-valuenow="{{ percentage }}"
+                  aria-valuemin="0"
+                  aria-valuemax="100"
+                  [ngStyle]="{ width: percentage + '%' }"
+                >
+                  {{ percentage }}%
+                </div>
+            </div>
+        </mat-card-content>       
+
+        <button mat-raised-button color="primary" (click)="onGoToBackList()">OK</button>
+    </mat-card>
 </div>

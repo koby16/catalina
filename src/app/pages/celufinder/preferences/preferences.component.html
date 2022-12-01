@@ -1,0 +1,230 @@
+<div class="container">
+  <figure class="text-center mt-2">
+    <blockquote class="blockquote">
+      <p>{{ this.id_page | titlecase }}</p>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+      Punto de venta Entel
+    </figcaption>
+  </figure>
+  <p>{{ ipAddress }}</p>
+  <mat-horizontal-stepper [linear]="false" #stepper class="px-3">
+    <mat-step label="Características">
+      <form (ngSubmit)="onSaveFeaturesPoints()" [formGroup]="featuresForm">
+        <div class="row justify-content-md-center">
+          <div class="col-lg-6">
+            <div class="row">
+              <mat-card>
+                <mat-card-title>¿Qué es lo más importante para ti?</mat-card-title>
+                <div>
+                  <mat-slider
+                      class="example-margin"
+                      formControlName="inputPerformance"
+                      [invert]="false"
+                      [max]="2"
+                      [min]="0"
+                      [step]="1"
+                      [thumbLabel]="true">
+                  </mat-slider>
+                  Rendimiento
+                </div>
+                <div>
+                  <mat-slider
+                      class="example-margin"
+                      formControlName="inputCamera"
+                      [invert]="false"
+                      [max]="2"
+                      [min]="0"
+                      [step]="1"
+                      [thumbLabel]="true">
+                  </mat-slider>
+                  Cámara
+                </div>
+                <div>
+                  <mat-slider
+                      class="example-margin"
+                      formControlName="inputBattery"
+                      [invert]="false"
+                      [max]="2"
+                      [min]="0"
+                      [step]="1"
+                      [thumbLabel]="true">
+                  </mat-slider>
+                  Batería
+                </div>
+                <div>
+                  <mat-slider
+                      class="example-margin"
+                      formControlName="inputDesign"
+                      [invert]="false"
+                      [max]="2"
+                      [min]="0"
+                      [step]="1"
+                      [thumbLabel]="true">
+                  </mat-slider>
+                  Diseño
+                </div>
+                <div>
+                  <mat-slider
+                      class="example-margin"
+                      formControlName="inputScreen"
+                      [invert]="false"
+                      [max]="2"
+                      [min]="0"
+                      [step]="1"
+                      [thumbLabel]="true">
+                  </mat-slider>
+                  Pantalla
+                </div>
+                <div>
+                  <mat-slider
+                      class="example-margin"
+                      formControlName="inputAudio"
+                      [invert]="false"
+                      [max]="2"
+                      [min]="0"
+                      [step]="1"
+                      [thumbLabel]="true">
+                  </mat-slider>
+                  Audio
+                </div>
+                <div>
+                  <mat-slider
+                      class="example-margin"
+                      formControlName="inputConnectivity"
+                      [invert]="false"
+                      [max]="2"
+                      [min]="0"
+                      [step]="1"
+                      [thumbLabel]="true">
+                  </mat-slider>
+                  Conectividad
+                </div>
+                <div>
+                  <mat-slider
+                      class="example-margin"
+                      formControlName="inputOs"
+                      [invert]="false"
+                      [max]="2"
+                      [min]="0"
+                      [step]="1"
+                      [thumbLabel]="true">
+                  </mat-slider>
+                  Sistema operativo
+                </div>
+              </mat-card>
+            </div>
+            <div class="row mt-3">
+              <button type="submit" mat-raised-button matStepperNext color="accent">Siguiente</button>
+            </div>
+          </div>
+        </div>       
+      </form>
+    </mat-step>
+    <mat-step label="Marca">
+      <form [formGroup]="brandsForm" (ngSubmit)="onSaveBrandsForm()">
+        <div class="row justify-content-md-center">
+          <div class="col-lg-6">
+            <div class="row">
+              <mat-card>
+                <mat-card-title>¿Qué marca te gusta?</mat-card-title>
+                <div *ngFor="let brand of brandsList; let i=index">
+                  <p><mat-checkbox [value]="brand.name" (change)="onCheckboxBrandsChange($event)" [checked]="brand.isSelected">{{brand.name}}</mat-checkbox></p>
+                </div>
+              </mat-card>
+            </div>
+            <div class="row mt-3">
+              <button type="submit" mat-raised-button matStepperNext color="accent">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step label="Gama">
+      <form [formGroup]="gamasForm" (ngSubmit)="onSaveGamasForm()">
+        <div class="row justify-content-md-center">
+          <div class="col-lg-6">
+            <div class="row">
+              <mat-card>
+                <mat-card-title>¿Qué gama prefieres?</mat-card-title>
+                <div *ngFor="let gama of gamasList; let i=index">
+                  <p><mat-checkbox [value]="gama.name" (change)="onCheckboxGamasChange($event)">{{gama.name}} ({{gama.rango}})</mat-checkbox></p>
+                </div>
+              </mat-card>
+            </div>
+            <div class="row mt-3">
+              <button type="submit" mat-raised-button matStepperNext color="accent">Busquemos!</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step label="Listo!">
+      <div class="row justify-content-md-center mt-3">
+        <div class="col-lg-3 mx-auto mt-3" *ngFor="let item of filterGamaPhones.slice(0,3); index as i">
+          <div class="row">
+            <mat-card matBadge="{{i+1}}" matBadgeSize="large" matBadgeOverlap="true" matBadgeColor="accent">
+              <mat-card-title>
+                <mat-chip-list aria-label="Dog selection">
+                  <mat-chip>
+                    {{ item.marketName }}
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-card-title>                      
+              <img mat-card-image [src]="item.urlPicture  || defaultImage" class="mt-2" alt="Photo of a Shiba Inu">
+              <mat-card-content>
+                <mat-chip-list>
+                  <mat-chip>
+                    <mat-icon>photo_camera</mat-icon>
+                    F:{{ item.frontCamValue}} | T:{{ item.mainCamValue}}
+                  </mat-chip>
+                  <mat-chip>
+                    <mat-icon>sd_card</mat-icon>
+                    {{ item.intMemoryValue}}
+                  </mat-chip>
+                  <mat-chip>
+                    <mat-icon>screenshot</mat-icon>
+                    {{ item.screenValue}}
+                  </mat-chip>
+                  <mat-chip>
+                    <mat-icon>memory</mat-icon>
+                    RAM:{{ item.ramValue}}
+                  </mat-chip>
+                  <mat-chip>
+                    <mat-icon>battery_charging_full</mat-icon>
+                    {{ item.batteryValue}}
+                  </mat-chip>
+                  <mat-chip *ngIf="item.maxTec === '4G'">
+                    <mat-icon>4g_mobiledata</mat-icon>
+                  </mat-chip>
+                  <mat-chip *ngIf="item.maxTec === '4.5G'">
+                    <mat-icon>4g_plus_mobiledata</mat-icon>
+                  </mat-chip>
+                  <mat-chip *ngIf="item.maxTec === '5G'">
+                    <mat-icon>5g</mat-icon>
+                  </mat-chip>
+                  <mat-chip selected color="accent" *ngIf="!(item.stockType == 'General')">
+                    <mat-icon>shopping_cart</mat-icon>
+                    {{item.stockType}}
+                  </mat-chip>
+                </mat-chip-list>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <div class="row mt-3 justify-content-center">
+          <div class="col col-sm-4">
+            <div class="row">
+              <button mat-raised-button color="primary" (click)="stepper.reset()">Regresar al Inicio</button>
+            </div>
+          </div>
+          <div class="col col-sm-4">
+            <div class="row">
+              <button mat-raised-button color="accent" (click)="openDialog()">Ver ranking</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-step>
+</mat-horizontal-stepper>
+</div>

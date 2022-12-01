@@ -12,9 +12,11 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
 })
 export class DeviceListComponent implements OnInit {
 
+  defaultImage = "https://play-lh.googleusercontent.com/jMYUEwByxu5_G-VRYLpY-wWoSX9L-H62mjn8puy8MJuYTwSoUiUACPo4uTSmK2uKrIo"
+
   devices$ = this.deviceSrv.devices
 
-  displayedColumns: string[] = ['brand', 'model', 'marketName', 'maxTec', 'star']
+  displayedColumns: string[] = ['urlPicture', 'brand', 'model', 'marketName', 'maxTec', 'star']
   dataSource = new MatTableDataSource();
 
   navigationExtras: NavigationExtras = {

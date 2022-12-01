@@ -1,0 +1,5 @@
+<mat-dialog-content>
+        <p *ngFor="let item of data; let serialNo = index">
+            {{ serialNo+1 }}.- {{ item.marketName }}
+        </p>
+</mat-dialog-content>

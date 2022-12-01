@@ -35,4 +35,16 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['auth/register'])
   }
 
+  onGoToPR(): void{
+    this.router.navigate(['celufinder/piloto/plaza-republica'])
+  }
+  
+  onGoToCL(): void{
+    this.router.navigate(['celufinder/piloto/centro-de-lima'])
+  }
+
+  onGoToSM(): void{
+    this.router.navigate(['celufinder/piloto/plaza-san-miguel'])
+  }
+
 }

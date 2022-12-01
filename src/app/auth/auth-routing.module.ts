@@ -8,9 +8,9 @@ const routes: Routes = [
   {
     path: '',
     children: [
-      { path: 'forgot', component: ForgotComponent },
+      //{ path: 'forgot', component: ForgotComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
+      //{ path: 'register', component: RegisterComponent },
       { path: '**', redirectTo: 'login'}
     ]
   }
